@@ -13,8 +13,8 @@ app.get("/courses", (req, res) => {
 });
 
 app.post("/courses", (req, res) => {
-  const courseName = req.body.courseName;
-  courses.append({id: courses.length+1, name: courseName});
+  const courseName = req.body;
+  courses.push({ id: courses.length + 1, name: courseName });
 });
 
 app.listen(3000);
