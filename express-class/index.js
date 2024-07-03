@@ -12,11 +12,11 @@ const courses = [
   { id: 3, name: "c++" },
 ];
 
-app.get("/courses", (req, res) => {
+app.get("/courses", logger, (req, res) => {
   res.json(courses);
 });
 
-app.post("/courses", (req, res) => {
+app.post("/courses", logger, (req, res) => {
   const course = req.body.course;
   if (!course) {
     return res.status(400).send("Course not provided");
@@ -55,6 +55,11 @@ app.delete("/courses/:id", (req, res) => {
   courses.splice(index, 1);
   res.sendStatus(200);
 });
+
+function logger(req, res, next) {
+  console.log(`${new Date()} ${req.method} ${req.url} ${req.ip}`);
+  next();
+}
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
